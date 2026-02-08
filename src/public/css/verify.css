@@ -1,0 +1,38 @@
+/* public/css/verify.css */
+.verify-wrapper {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.verify-message {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+.verify-button {
+    display: inline-block;
+    width: 257px;
+    height: 69px;
+    line-height: 69px;
+    border: 1px solid #000;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.resend-link {
+    display: inline-block;
+    margin-top: 10px;
+    background: none;
+    border: none;
+    color: #0073CC;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: underline;
+}
