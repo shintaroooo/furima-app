@@ -6,13 +6,20 @@
 @section('form-title', '商品一覧')
 
 @section('content')
-    <div class="item-container">
-        @foreach ($items as $item)
-            <div class="item-card">
-                <a href="{{ route('item.show', $item->id) }}">
-                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" class="item-image">
-                    <p class="item-name">{{ $item->name }}</p>
-                </a>
-            </div>
-        @endforeach
-    </div>
+
+    @foreach ($items as $item)
+        <div>
+            <a href="{{ route('item.detail', $item) }}">
+                <p>{{ $item->name }}</p>
+
+                @if ($item->images->isNotEmpty())
+                    <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" width="150">
+                @endif
+
+                @if ($item->purchase)
+                    <span style="color: red;">Sold</span>
+                @endif
+            </a>
+        </div>
+    @endforeach
+@endsection
