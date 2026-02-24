@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,3 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/address/{item_id}', [AddressController::class, 'edit'])->name('purchase.address.edit');
     Route::post('/purchase/address/{item_id}', [AddressController::class, 'update'])->name('purchase.address.update');
 });
+
+// 商品一覧
+Route::get('/', [ItemController::class, 'index'])->name('item.index');
+Route::get('/item/{item}', [ItemController::class, 'show'])->name('item.detail');

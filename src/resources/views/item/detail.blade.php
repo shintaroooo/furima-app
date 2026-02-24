@@ -35,7 +35,7 @@
         {{ $category->name }}
     @endforeach
     </p>
-    <p>商品の状態：</p>
+    <p>商品の状態：{{ $item->condition }}</p>
 
     <hr>
 

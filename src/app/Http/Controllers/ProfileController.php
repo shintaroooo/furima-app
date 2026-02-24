@@ -10,6 +10,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         $products = collect();
 
         return view('profile.index', compact('user', 'products'));
@@ -31,7 +32,7 @@ class ProfileController extends Controller
             $path = $request->file('profile_image')->store('profile_images', 'public');
             $user->profile_image = $path;
         }
-        $user->fill($request->only(['name']));
+        $user->fill($request->only(['name', 'postal_code', 'address', 'building_name']));
         $user->save();
 
         return redirect()->route('profile.edit')->with('success', 'プロフィールを更新しました');

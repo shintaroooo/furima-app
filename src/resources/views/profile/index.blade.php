@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+@endsection
+
 @section('form-title', 'プロフィール画面')
 
 @section('content')
@@ -19,18 +23,52 @@
         </div>
 
         <div class="tab-menu">
-            <a href="#" class="tab active">出品した商品</a>
-            <a href="#" class="tab">購入した商品</a>
+            <button class="tab active" data-tab="sell">出品した商品</button>
+            <button class="tab" data-tab="buy">購入した商品</button>
+        </div>
+        <div id="sell" class="tab-content active">
+            @foreach ($sellProducts ?? [] as $product)
+                <div class="product-card">
+                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}"
+                        class="product-image">
+                    <p class="product-name">{{ $product->name }}</p>
+                </div>
+            @endforeach
         </div>
 
-        <div class="product-list">
-            {{-- 商品カードを繰り返し表示（出品 or 購入） --}}
-            @foreach ($products as $product)
+        <div id="buy" class="tab-content">
+            @foreach ($buyProducts ?? [] as $product)
                 <div class="product-card">
-                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="商品画像" class="product-image">
+                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}"
+                        class="product-image">
                     <p class="product-name">{{ $product->name }}</p>
                 </div>
             @endforeach
         </div>
     </div>
 @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const tabs = document.querySelectorAll(".tab");
+        const sections = document.querySelectorAll(".product-section");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", function() {
+
+                // タブのactive切り替え
+                tabs.forEach(t => t.classList.remove("active"));
+                this.classList.add("active");
+
+                // 商品表示切り替え
+                sections.forEach(section => {
+                    section.classList.remove("active");
+                });
+
+                document.getElementById(this.dataset.tab).classList.add("active");
+            });
+        });
+
+    });
+</script>

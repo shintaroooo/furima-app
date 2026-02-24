@@ -21,6 +21,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'profile_image',
+        'postal_code',
+        'address',
+        'building_name',
     ];
 
     /**
@@ -41,4 +45,34 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //出品アイテム（1対N）
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    //コメント
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    //いいねしたアイテム
+    public function likedItems()
+    {
+        return $this->belongsToMany(Item::class, 'likes');
+    }
+
+    //購入履歴
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class, 'buyer_id');
+    }
+
+    //住所
+    public function address()
+    {
+        return $this->hasMany(Address::class);
+    }
 }
