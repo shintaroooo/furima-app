@@ -7,6 +7,11 @@
 
 @section('content')
 
+    {{-- タブ切り替え --}}
+    <div class="item-tabs">
+        <a href="{{ route('item.index') }}" class="item-tabs__link {{{ request('tab') !== 'mylist' ? 'active' : '' }}}">おすすめ</a>
+        <a href="{{ route('item.index', ['tab' => 'mylist']) }}" class="item-tabs__link {{{ request('tab') === 'mylist' ? 'is-active' : '' }}}">マイリスト</a>
+    </div>
     @foreach ($items as $item)
         <div>
             <a href="{{ route('item.detail', $item) }}">
