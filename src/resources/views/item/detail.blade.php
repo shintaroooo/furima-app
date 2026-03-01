@@ -15,6 +15,19 @@
 
     {{-- いいね数 --}}
     <p>いいね数：{{ $item->likes->count() }}</p>
+    @auth
+        <form action="{{ route('item.like', $item->id) }}" method="POST">
+            @csrf
+            <button type="submit" style="border:none; background:none; color:blue; cursor:pointer;">
+                @if (auth()->user()->likedItems()->where('item_id', $item->id)->exists())
+                    <img src="{{ asset('images/hartlogo_pink.png') }}" width="30">
+                @else
+                    <img src="{{ asset('images/hartlogo_default.png') }}" width="30">
+                @endif
+                {{ $item->likes->count() }}
+            </button>
+        </form>
+    @endauth
 
     {{-- コメント数 --}}
     <p>コメント数：{{ $item->comments->count() }}</p>
@@ -43,4 +56,12 @@
     @foreach ($item->comments as $comment)
         <p>{{ $comment->user->name }}: {{ $comment->comment }}</p>
     @endforeach
+    {{-- コメント投稿フォーム --}}
+    @auth
+        <form action="{{ route('comment.store', $item->id) }}" method="POST">
+            @csrf
+            <textarea name="comment" rows="4"></textarea>
+            <button type="submit">コメントを送信する</button>
+        </form>
+    @endauth
 @endsection

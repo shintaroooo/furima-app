@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,3 +75,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // 商品一覧
 Route::get('/', [ItemController::class, 'index'])->name('item.index');
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('item.detail');
+
+//コメントの保存
+Route::post('/item/{item}/comment', [CommentController::class, 'store'])->middleware('auth')->name('comment.store');
+
+//いいねの保存
+Route::post('/item/{item}/like', [LikeController::class, 'toggle'])->middleware('auth')->name('item.like');
