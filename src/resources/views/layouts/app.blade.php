@@ -19,8 +19,13 @@
                     <img src="{{ asset('images/header_logo.png') }}" alt="COACHTECH ロゴ" class="user-header__logo">
                 </a>
 
-                <form action="#" method="GET" class="user-header__search-form">
-                    <input type="search" name="keyword" class="user-header__search-input" placeholder="なにをお探しですか？">
+                <form action="{{ route('item.index') }}" method="GET" class="user-header__search-form">
+                    {{-- タブの状態を維持して検索できるようにする --}}
+                    @if (request('tab'))
+                        <input type="hidden" name="tab" value="{{ request('tab') }}">
+                    @endif
+                    <input type="search" name="keyword" class="user-header__search-input" placeholder="なにをお探しですか？"
+                        value="{{ request('keyword') }}">
                 </form>
 
                 <nav class="user-header__nav">

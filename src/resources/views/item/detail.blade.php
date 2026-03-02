@@ -38,6 +38,16 @@
 
     <hr>
 
+    {{-- 商品購入ボタン --}}
+    @if (!$item->purchase && Auth::id() !== $item->user_id)
+        <a href="{{ route('purchase.create', $item->id) }}">
+            <button class="item-detail__purchase-button">購入手続きへ</button>
+        </a>
+    @endif
+    @if ($item->purchase)
+        <p style="color: red;">Sold</p>
+    @endif
+
     <h3>商品説明</h3>
     <p>{{ $item->description }}</p>
 
