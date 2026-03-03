@@ -9,8 +9,9 @@ use App\Models\Item;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Item $item)
+    public function store(Request $request, Item $item_id)
     {
+        $item = $item_id;
         $request->validate([
             'comment' => 'required|max:255',
         ]);

@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function toggle(Item $item)
+    public function toggle(Item $item_id)
     {
+        $item = $item_id;
         $user = Auth::user();
 
         if($user->likedItems()->where('item_id', $item->id)->exists()) {

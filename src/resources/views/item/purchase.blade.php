@@ -25,9 +25,11 @@
             @enderror
 
             <h3>配送先</h3>
+            <a href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}">変更する</a>
             @if ($address)
                 <p>〒{{ $address->postal_code }}</p>
-                <p>{{ $address->city }}{{ $address->street }}</p>
+                <p>{{ $address->address }}</p>
+                <p>{{ $address->building }}</p>
                 <input type="hidden" name="address_id" value="{{ $address->id }}">
             @else
                 <p>住所が登録されていません</p>

@@ -22,9 +22,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'profile_image',
-        'postal_code',
-        'address',
-        'building_name',
     ];
 
     /**
@@ -73,6 +70,6 @@ class User extends Authenticatable implements MustVerifyEmail
     //住所
     public function address()
     {
-        return $this->hasMany(Address::class);
+        return $this->hasOne(Address::class);
     }
 }

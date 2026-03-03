@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
@@ -10,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PurchaseAddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,9 +47,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // 会員登録
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
@@ -68,16 +66,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // 住所の変更
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/purchase/address/{item_id}', [AddressController::class, 'edit'])->name('purchase.address.edit');
-    Route::post('/purchase/address/{item_id}', [AddressController::class, 'update'])->name('purchase.address.update');
+    Route::get('/purchase/address/{item_id}', [PurchaseAddressController::class, 'edit'])->name('purchase.address.edit');
+    Route::patch('/purchase/address/{item_id}', [PurchaseAddressController::class, 'update'])->name('purchase.address.update');
 });
 
 // 商品一覧
 Route::get('/', [ItemController::class, 'index'])->name('item.index');
-Route::get('/item/{item}', [ItemController::class, 'show'])->name('item.detail');
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.detail');
 
 //コメントの保存
-Route::post('/item/{item}/comment', [CommentController::class, 'store'])->middleware('auth')->name('comment.store');
+Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->middleware('auth')->name('comment.store');
 
 //いいねの保存
-Route::post('/item/{item}/like', [LikeController::class, 'toggle'])->middleware('auth')->name('item.like');
+Route::post('/item/{item_id}/like', [LikeController::class, 'toggle'])->middleware('auth')->name('item.like');
+
+//購入
+Route::get('/purchase/{item_id}', [App\Http\Controllers\PurchaseController::class, 'create'])->middleware('auth')->name('purchase.create');
+Route::post('/purchase/{item_id}', [App\Http\Controllers\PurchaseController::class, 'store'])->middleware('auth')->name('purchase.store');

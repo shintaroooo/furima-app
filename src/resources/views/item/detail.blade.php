@@ -16,7 +16,7 @@
     {{-- いいね数 --}}
     <p>いいね数：{{ $item->likes->count() }}</p>
     @auth
-        <form action="{{ route('item.like', $item->id) }}" method="POST">
+        <form action="{{ route('item.like', ['item_id' => $item->id]) }}" method="POST">
             @csrf
             <button type="submit" style="border:none; background:none; color:blue; cursor:pointer;">
                 @if (auth()->user()->likedItems()->where('item_id', $item->id)->exists())
@@ -40,7 +40,7 @@
 
     {{-- 商品購入ボタン --}}
     @if (!$item->purchase && Auth::id() !== $item->user_id)
-        <a href="{{ route('purchase.create', $item->id) }}">
+        <a href="{{ route('purchase.create', ['item_id' => $item->id]) }}">
             <button class="item-detail__purchase-button">購入手続きへ</button>
         </a>
     @endif
@@ -68,7 +68,7 @@
     @endforeach
     {{-- コメント投稿フォーム --}}
     @auth
-        <form action="{{ route('comment.store', $item->id) }}" method="POST">
+        <form action="{{ route('comment.store', ['item_id' => $item->id]) }}" method="POST">
             @csrf
             <textarea name="comment" rows="4"></textarea>
             <button type="submit">コメントを送信する</button>
