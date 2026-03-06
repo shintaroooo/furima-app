@@ -23,52 +23,36 @@
         </div>
 
         <div class="tab-menu">
-            <button class="tab active" data-tab="sell">出品した商品</button>
-            <button class="tab" data-tab="buy">購入した商品</button>
+            <a href="{{ route('profile.index', ['page' => 'sell']) }}"
+                class="tab {{ $page === 'sell' ? 'active' : '' }}">出品した商品</a>
+            <a href="{{ route('profile.index', ['page' => 'buy']) }}"
+                class="tab {{ $page === 'buy' ? 'active' : '' }}">購入した商品</a>
         </div>
-        <div id="sell" class="tab-content active">
-            @foreach ($sellProducts ?? [] as $product)
-                <div class="product-card">
-                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}"
-                        class="product-image">
-                    <p class="product-name">{{ $product->name }}</p>
-                </div>
-            @endforeach
-        </div>
+        @if ($page === 'sell')
+            <div class="tab-content">
+                @foreach ($sellItems as $item)
+                    <div class="product-card">
+                        @if ($item->images->isNotEmpty())
+                            <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" class="product-image">
+                        @endif
+                        <p class="product-name">{{ $item->name }}</p>
+                    </div>
+                @endforeach
+            </div>
+        @endif
 
-        <div id="buy" class="tab-content">
-            @foreach ($buyProducts ?? [] as $product)
-                <div class="product-card">
-                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}"
-                        class="product-image">
-                    <p class="product-name">{{ $product->name }}</p>
-                </div>
-            @endforeach
-        </div>
+        @if ($page === 'buy')
+            <div class="tab-content">
+                @foreach ($buyItems as $purchase)
+                    <div class="product-card">
+                        @if ($purchase->item->images->isNotEmpty())
+                            <img src="{{ asset('storage/' . $purchase->item->images->first()->image_path) }}"
+                                class="product-image">
+                        @endif
+                        <p class="product-name">{{ $purchase->item->name }}</p>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     </div>
 @endsection
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-        const tabs = document.querySelectorAll(".tab");
-        const sections = document.querySelectorAll(".product-section");
-
-        tabs.forEach(tab => {
-            tab.addEventListener("click", function() {
-
-                // タブのactive切り替え
-                tabs.forEach(t => t.classList.remove("active"));
-                this.classList.add("active");
-
-                // 商品表示切り替え
-                sections.forEach(section => {
-                    section.classList.remove("active");
-                });
-
-                document.getElementById(this.dataset.tab).classList.add("active");
-            });
-        });
-
-    });
-</script>

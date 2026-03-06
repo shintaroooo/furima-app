@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Category;
+use App\Models\ItemImage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ExhibitionRequest;
+
 
 
 class ItemController extends Controller
@@ -50,22 +56,38 @@ class ItemController extends Controller
         ]);
         return view('item.detail', compact('item'));
     }
-
-    public function store(Request $request, Item $item)
+    //出品
+    public function create()
     {
-        if ($item->purchase) {
-            return back();
-        }
-        DB::transaction(function () use ($request, $item) {
+        $categories = Category::all();
+        return view('item.sell', compact('categories'));
+    }
 
-            Purchase::create([
-                'buyer_id' => Auth::id(),
+    //出品の保存
+    public function store(ExhibitionRequest $request)
+    {
+        DB::transaction(function () use ($request) {
+        $item = Item::create([
+            'user_id' => Auth::id(),
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'description' => $request->description,
+            'price' => $request->price,
+            'condition' => $request->condition,
+        ]);
+
+        //カテゴリーの保存
+        $item->categories()->attach($request->categories);
+
+        //画像の保存
+        if($request->hasFile('image')){
+            $path = $request->file('image')->store('items', 'public');
+            ItemImage::create([
                 'item_id' => $item->id,
-                'price' => $item->price,
-                'payment_method' => $request->payment_method,
-                'address_id' => Auth::user()->addresses()->first()->id,
-            ]);
-        });
-        return redirect()->route('item.index');
-}
+                'image_path' => $path,
+        ]);
+        }
+    });
+    return redirect()->route('item.index');
+    }
 }

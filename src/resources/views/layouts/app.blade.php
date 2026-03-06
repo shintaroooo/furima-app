@@ -36,12 +36,16 @@
                         </button>
                     </form>
                     <a href="{{ route('profile.index') }}" class="user-header__nav-link">マイページ</a>
-                    <a href="#" class="user-header__sell-link">出品</a>
+                    <a href="{{ route('item.create') }}" class="user-header__sell-link">出品</a>
                 </nav>
             </div>
         </header>
 
         <main class="user-content">
+            @if (session('success'))
+                <div class="success">{{ session('success') }}
+                </div>
+            @endif
             @yield('content')
         </main>
     @else

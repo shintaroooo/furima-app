@@ -27,7 +27,7 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return redirect()->route('profile.index');
+    return redirect()->route('profile.edit');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 // 認証メール再送
@@ -83,3 +83,9 @@ Route::post('/item/{item_id}/like', [LikeController::class, 'toggle'])->middlewa
 //購入
 Route::get('/purchase/{item_id}', [App\Http\Controllers\PurchaseController::class, 'create'])->middleware('auth')->name('purchase.create');
 Route::post('/purchase/{item_id}', [App\Http\Controllers\PurchaseController::class, 'store'])->middleware('auth')->name('purchase.store');
+//決済成功
+Route::get('/purchase/success/{item_id}', [App\Http\Controllers\PurchaseController::class, 'success'])->middleware('auth')->name('purchase.success');
+
+//出品
+Route::get('/sell', [ItemController::class, 'create'])->middleware('auth')->name('item.create');
+Route::post('/sell', [ItemController::class, 'store'])->middleware('auth')->name('item.store');

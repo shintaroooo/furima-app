@@ -16,7 +16,7 @@ class Item extends Model
         'brand',
         'description',
         'price',
-        'status',
+        'condition',
     ];
     //出品者
     public function user()
