@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @endsection
 
-@section('form-title', 'プロフィール画面')
+{{-- @section('form-title', 'プロフィール画面') --}}
 
 @section('content')
     <div class="profile-container">
@@ -22,35 +22,48 @@
             </div>
         </div>
 
-        <div class="tab-menu">
+        {{-- タブ切り替え --}}
+        <div class="tabs">
             <a href="{{ route('profile.index', ['page' => 'sell']) }}"
-                class="tab {{ $page === 'sell' ? 'active' : '' }}">出品した商品</a>
+                class="tabs__link {{ $page === 'sell' ? 'active' : '' }}">出品した商品</a>
             <a href="{{ route('profile.index', ['page' => 'buy']) }}"
-                class="tab {{ $page === 'buy' ? 'active' : '' }}">購入した商品</a>
+                class="tabs__link {{ $page === 'buy' ? 'active' : '' }}">購入した商品</a>
         </div>
+
+        {{-- 出品した商品 --}}
         @if ($page === 'sell')
-            <div class="tab-content">
+            <div class="item-grid">
                 @foreach ($sellItems as $item)
-                    <div class="product-card">
-                        @if ($item->images->isNotEmpty())
-                            <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" class="product-image">
-                        @endif
-                        <p class="product-name">{{ $item->name }}</p>
-                    </div>
+                    <a href="{{ route('item.detail', $item) }}" class="item-card">
+                        <div class="item-card__image">
+                            @if ($item->images->isNotEmpty())
+                                <img src="{{ asset('storage/' . $item->images->first()->image_path) }}"
+                                    class="product-image">
+                            @endif
+
+                            @if ($item->purchase)
+                                <span class="item-card__sold">Sold</span>
+                            @endif
+                        </div>
+                        <p class="item-card__name">{{ $item->name }}</p>
+                    </a>
                 @endforeach
             </div>
         @endif
 
+        {{-- 購入した商品 --}}
         @if ($page === 'buy')
-            <div class="tab-content">
+            <div class="item-grid">
                 @foreach ($buyItems as $purchase)
-                    <div class="product-card">
-                        @if ($purchase->item->images->isNotEmpty())
-                            <img src="{{ asset('storage/' . $purchase->item->images->first()->image_path) }}"
-                                class="product-image">
-                        @endif
-                        <p class="product-name">{{ $purchase->item->name }}</p>
-                    </div>
+                    <a href="{{ route('item.detail', $purchase->item) }}" class="item-card">
+
+                        <div class="item-card__image">
+                            @if ($purchase->item->images->isNotEmpty())
+                                <img src="{{ asset('storage/' . $purchase->item->images->first()->image_path) }}">
+                            @endif
+                        </div>
+                        <p class="item-card__name">{{ $purchase->item->name }}</p>
+                    </a>
                 @endforeach
             </div>
         @endif

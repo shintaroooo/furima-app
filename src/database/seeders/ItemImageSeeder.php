@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\ItemImage;
-use App\Models\Item;
 
 class ItemImageSeeder extends Seeder
 {
@@ -15,10 +14,23 @@ class ItemImageSeeder extends Seeder
      */
     public function run()
     {
-        $item = Item::first(); //最初のアイテムを取得
-        ItemImage::create([
-            'item_id' => $item->id,
-            'image_path' => 'Armani+Mens+Clock.jpg',
-        ]);
+        $images = [
+            'items/watch.jpg',
+            'items/hdd.jpg',
+            'items/onion.jpg',
+            'items/shoes.jpg',
+            'items/laptop.jpg',
+            'items/mic.jpg',
+            'items/bag.jpg',
+            'items/tumbler.jpg',
+            'items/coffee_grinder.jpg',
+            'items/makeup.jpg',
+        ];
+        foreach ($images as $index => $image) {
+            ItemImage::create([
+                'item_id' => $index + 1,
+                'image_path' => $image
+            ]);
+        }
     }
 }

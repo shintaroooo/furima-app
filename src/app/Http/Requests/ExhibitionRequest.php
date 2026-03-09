@@ -32,4 +32,21 @@ class ExhibitionRequest extends FormRequest
             'price' => 'required|integer|min:0',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '商品名は必須です',
+            'description.required' => '商品の説明は必須です',
+            'description.max' => '商品の説明は255文字以内で入力してください',
+            'image.required' => '画像は必須です',
+            'image.image' => '画像ファイルを選択してください',
+            'image.mimes' => '画像はJPEGまたはPNG形式のファイルを選択してください',
+            'categories.required' => 'カテゴリーは必須です',
+            'condition.required' => '商品の状態は必須です',
+            'price.required' => '価格は必須です',
+            'price.integer' => '価格は整数で入力してください',
+            'price.min' => '価格は0円以上で入力してください',
+        ];
+    }
 }

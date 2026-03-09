@@ -3,75 +3,94 @@
     <link rel="stylesheet" href="{{ asset('css/item.css') }}">
 @endsection
 
-@section('form-title', '商品詳細')
+{{-- @section('form-title', '商品詳細') --}}
 @section('content')
-    <h1>{{ $item->name }}</h1>
-    {{--  画像 --}}
-    @if ($item->images->isNotEmpty())
-        <img src="{{ asset('storage/' . $item->images->first()->image_path) }}" width="300">
-    @endif
-    <p>ブランド：{{ $item->brand }}</p>
-    <p>¥{{ number_format($item->price) }}(税込)</p>
+    <div class="item-detail">
 
-    {{-- いいね数 --}}
-    <p>いいね数：{{ $item->likes->count() }}</p>
-    @auth
-        <form action="{{ route('item.like', ['item_id' => $item->id]) }}" method="POST">
-            @csrf
-            <button type="submit" style="border:none; background:none; color:blue; cursor:pointer;">
-                @if (auth()->user()->likedItems()->where('item_id', $item->id)->exists())
-                    <img src="{{ asset('images/hartlogo_pink.png') }}" width="30">
-                @else
-                    <img src="{{ asset('images/hartlogo_default.png') }}" width="30">
-                @endif
-                {{ $item->likes->count() }}
-            </button>
-        </form>
-    @endauth
+        {{-- 左：商品画像 --}}
+        <div class="item-detail__left">
+            @if ($item->images->isNotEmpty())
+                <img class="item-detail__image" src="{{ asset('storage/' . $item->images->first()->image_path) }}">
+            @endif
+        </div>
 
-    {{-- コメント数 --}}
-    <p>コメント数：{{ $item->comments->count() }}</p>
+        {{-- 右：商品情報 --}}
+        <div class="item-detail__right">
+            <h1 class="item-name">{{ $item->name }}</h1>
+            <p class="item-brand">ブランド: {{ $item->brand }}</p>
+            <p class="item-price"><span class="price-yen">¥</span>{{ number_format($item->price) }}
+                <span class="price-tax">(税込)</span>
+            </p>
 
-    @if ($item->purchase)
-        <p style="color: red;">Sold</p>
-    @endif
+            {{-- いいね数 --}}
+            <div class="item-actions">
+                @auth
+                    <form action="{{ route('item.like', ['item_id' => $item->id]) }}" method="POST">
+                        @csrf
+                        <button class="like-button" type="submit">
 
-    <hr>
+                            @if (auth()->user()->likedItems()->where('item_id', $item->id)->exists())
+                                <img src="{{ asset('images/hartlogo_pink.png') }}">
+                            @else
+                                <img src="{{ asset('images/hartlogo_default.png') }}">
+                            @endif
+                            {{ $item->likes->count() }}
+                        </button>
+                    </form>
+                @endauth
 
-    {{-- 商品購入ボタン --}}
-    @if (!$item->purchase && Auth::id() !== $item->user_id)
-        <a href="{{ route('purchase.create', ['item_id' => $item->id]) }}">
-            <button class="item-detail__purchase-button">購入手続きへ</button>
-        </a>
-    @endif
-    @if ($item->purchase)
-        <p style="color: red;">Sold</p>
-    @endif
+                <div class="comment-count">
+                    <img src="{{ asset('images/chatlogo.png') }}" alt="コメントアイコン" class="comment-icon">
+                    {{ $item->comments->count() }}
+                </div>
+            </div>
 
-    <h3>商品説明</h3>
-    <p>{{ $item->description }}</p>
+            {{-- 商品購入ボタン --}}
+            @if (!$item->purchase && Auth::id() !== $item->user_id)
+                <a href="{{ route('purchase.create', ['item_id' => $item->id]) }}">
+                    <button class="purchase-button">購入手続きへ</button>
+                </a>
+            @endif
+            @if ($item->purchase)
+                <p style="color: red;">Sold</p>
+            @endif
 
-    <hr>
-    <h3>商品の情報</h3>
-    <p>カテゴリー：</p>
-    @foreach ($item->categories as $category)
-        {{ $category->name }}
-    @endforeach
-    </p>
-    <p>商品の状態：{{ $item->condition }}</p>
+            {{-- 商品説明 --}}
+            <div class="item-description">
+                <h3>商品説明</h3>
+                <p>{{ $item->description }}</p>
+            </div>
 
-    <hr>
+            {{-- 商品の情報 --}}
+            <div class="item-info">
+                <h3>商品の情報</h3>
+                <p>カテゴリー：</p>
 
-    <h3>コメント({{ $item->comments->count() }})</h3>
-    @foreach ($item->comments as $comment)
-        <p>{{ $comment->user->name }}: {{ $comment->comment }}</p>
-    @endforeach
-    {{-- コメント投稿フォーム --}}
-    @auth
-        <form action="{{ route('comment.store', ['item_id' => $item->id]) }}" method="POST">
-            @csrf
-            <textarea name="comment" rows="4"></textarea>
-            <button type="submit">コメントを送信する</button>
-        </form>
-    @endauth
+                <div class="category-list">
+                    @foreach ($item->categories as $category)
+                        <span class="category-tag">{{ $category->name }}</span>
+                    @endforeach
+                </div>
+
+                <p>商品の状態：{{ $item->condition }}</p>
+            </div>
+
+            {{-- コメント --}}
+            <div class="item-comments">
+                <h3>コメント({{ $item->comments->count() }})</h3>
+
+                @foreach ($item->comments as $comment)
+                    <p>{{ $comment->user->name }}: {{ $comment->comment }}</p>
+                @endforeach
+
+                @auth
+                    <form action="{{ route('comment.store', ['item_id' => $item->id]) }}" method="POST">
+                        @csrf
+                        <textarea name="comment" rows="4"></textarea>
+                        <button type="submit" class="comment-button">コメントを送信する</button>
+                    </form>
+                @endauth
+            </div>
+        </div>
+    </div>
 @endsection

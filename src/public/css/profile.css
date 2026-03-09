@@ -2,21 +2,25 @@
    プロフィール全体レイアウト
 ================================= */
 
-.profile-container img .profile-image-preview {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #ddd;
-}
-
-
 .edit-image{
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 20px;
     margin-bottom: 40px;
+}
+
+.profile_image_preview{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #ddd;
+}
+
+.profile-image-preview img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 /*画像エリア*/
@@ -84,7 +88,7 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
     background-color: #ccc;
 }
 
