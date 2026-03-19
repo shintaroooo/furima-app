@@ -58,7 +58,7 @@ class PurchaseController extends Controller
     public function success(Item $item_id)
     {
         $item = $item_id;
-    if($item->purchase) {
+    if($item->purchase()->exists()) {
         return redirect()->route('item.index');
     }
 

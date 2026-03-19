@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
 
-class AddressFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,10 +14,7 @@ class AddressFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
-            'postal_code' => '123-4567',
-            'address' => '東京都',
-            'building' => 'テストビル',
+            //
         ];
     }
 }
