@@ -71,6 +71,11 @@
     height: 28px;
     object-fit: contain;
 }
+
+.like-button.disabled {
+    pointer-events: none;
+}
+
 /* 購入ボタン */
 .purchase-button {
     width: 100%;
@@ -111,3 +116,7 @@
     resize: none;
     margin-top: 10px;
 }
+
+/* textarea:disabled {
+    background-color: #f5f5f5;
+} */
