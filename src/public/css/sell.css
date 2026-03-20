@@ -1,0 +1,124 @@
+.sell-container{
+    max-width:600px;
+    margin:60px auto;
+}
+
+.sell-title{
+    text-align:center;
+    font-size:28px;
+    margin-bottom:40px;
+}
+
+.sell-form{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-section{
+    margin-bottom:40px;
+}
+
+.section-title{
+    border-bottom:1px solid #ccc;
+    padding-bottom:10px;
+    margin-bottom:20px;
+}
+
+.form-label{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+/* 画像アップロード */
+
+.image-upload{
+    border:1px dashed #ccc;
+    padding:40px;
+    text-align:center;
+}
+
+.image-upload-box{
+    cursor:pointer;
+}
+
+.image-upload-box input{
+    display:none;
+}
+
+.image-upload-box span{
+    border:2px solid #ff5656;
+    padding:6px 20px;
+    color:#ff5656;
+    border-radius:6px;
+}
+
+/* カテゴリー */
+
+.category-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.category-tag{
+    position:relative;
+}
+
+.category-tag input{
+    display:none;
+}
+
+.category-tag span{
+    border:2px solid #ff5656;
+    padding:5px 12px;
+    border-radius:20px;
+    color:#ff5656;
+    cursor:pointer;
+}
+
+.category-tag input:checked + span{
+    background:#ff5656;
+    color:white;
+}
+
+/* 入力 */
+
+.form-input{
+    width:100%;
+    padding:10px;
+    margin-bottom:20px;
+}
+
+.form-select{
+    width:100%;
+    padding:10px;
+    margin-bottom:20px;
+}
+
+.form-textarea{
+    width:100%;
+    height:120px;
+    padding:10px;
+    margin-bottom:20px;
+}
+
+/* 出品ボタン */
+
+.sell-button{
+    width:100%;
+    padding:15px;
+    background:#ff5656;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* エラー */
+
+.error{
+    color:red;
+    font-size:14px;
+}

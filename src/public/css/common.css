@@ -6,7 +6,9 @@
 
 .header__inner {
     max-width: 1200px;
-    margin: 0 50px;
+    margin: 0 auto;
+    padding: 0 20px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,16 +27,16 @@
 /*search*/
 .header__search {
     flex: 1;
+    height: 35px;
     display: flex;
     justify-content: center;
-    margin: 0;
+    padding: 0 20px;
+    margin: 5px;
 }
 
 .header__search-input {
-    width: 400px;
-    padding: 8px 12px;
-    border-radius: 5px;
-    border: none;
+    width: 100%;
+    max-width: 400px;
 }
 
 /*nav*/
@@ -42,6 +44,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .header__link{
@@ -194,7 +197,6 @@
 .item-card__image {
     width: 100%;
     aspect-ratio: 1 / 1;
-    background: #ddd;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -251,6 +253,11 @@
     border-bottom: 2px solid red;
 }
 
+.error {
+    color: #ff5555;
+    font-size: 14px;
+    margin-top: 5px;
+}
 
 
 /*
