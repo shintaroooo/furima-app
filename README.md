@@ -5,8 +5,8 @@
 
 ## 環境構築
 Dockerビルド<br>
-・git clone git@github.com:shintaroooo/furima-app.git<br>
-・docker compose up -d --build<br>
+`git clone git@github.com:shintaroooo/furima-app.git`<br>
+`docker compose up -d --build`<br>
 
 
 ### Laravel環境構築<br>
