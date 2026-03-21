@@ -9,13 +9,19 @@ Dockerビルド<br>
 ・docker compose up -d --build<br>
 
 
-Laravel環境構築<br>
-・docker compose exec php bash<br>
-・composer install<br>
-・cp .env.example .env<br>
-・php artisan key:generate<br>
-・php artisan migrate:fresh --seed<br>
-・php artisan storage:link<br>
+### Laravel環境構築<br>
+PHPコンテナに入る<br>
+`docker compose exec php bash`<br>
+パッケージインストール<br>
+`composer install`<br>
+環境ファイル作成<br>
+`cp .env.example .env`<br>
+アプリケーションキー作成<br>
+`php artisan key:generate`<br>
+データベース作成・初期化<br>
+`php artisan migrate:fresh --seed`<br>
+ストレージリンク作成<br>
+`php artisan storage:link`<br>
 
 開発環境
 ・商品一覧画面：http://localhost:8081/<br>
@@ -98,32 +104,35 @@ http://localhost:8081/mypageにアクセス<br>
 ログイン画面へ遷移することを確認<br>
 
 ## テスト
+### PHPコンテナに入る
+`docker compose exec php bash`<br>
+
 ### テスト用環境ファイル作成
-cp .env.example .env.testing<br>
+`cp .env.example .env.testing`<br>
 
 ### テスト用DB設定
 .env.tesitngを編集<br>
-DB_CONNECTION=mysql<br>
-DB_HOST=mysql<br>
-DB_PORT=3306<br>
-DB_DATABASE=freemarket_test<br>
-DB_USERNAME=root<br>
-DB_PASSWORD=root<br>
+`DB_CONNECTION=mysql`<br>
+`DB_HOST=mysql`<br>
+`DB_PORT=3306`<br>
+`DB_DATABASE=freemarket_test`<br>
+`DB_USERNAME=root`<br>
+`DB_PASSWORD=root`<br>
 
 ### テスト用APP_KEY生成
-php artisan key:gererate --env=testing<br>
+`php artisan key:gererate --env=testing`<br>
 
 ### テスト用DB作成
 mysqlに入る<br>
-docker compose exec mysql bash<br>
+`docker compose exec mysql bash`<br>
 MySQLにログイン<br>
-mysql -u root -p<br>
+`mysql -u root -p`<br>
 DB作成<br>
-CREATE DATABASE freemarket_test;<br>
+`CREATE DATABASE freemarket_test;`<br>
 ### マイグレーション
-php artisan migrate --env=testing<br>
+`php artisan migrate --env=testing`<br>
 ### テスト実行
-php artisan test<br>
+`php artisan test`<br>
 
 ## 注意事項
 ・Stripeはテストモードで動作<br>
