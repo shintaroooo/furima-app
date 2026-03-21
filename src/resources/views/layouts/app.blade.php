@@ -70,6 +70,7 @@
             </div>
         </header>
         <main>
+            <h1 class="form-title">@yield('form-title')</h1>
             @yield('content')
             <div class="link">
                 @yield('link')

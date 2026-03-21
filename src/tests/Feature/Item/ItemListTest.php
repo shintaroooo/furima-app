@@ -97,7 +97,7 @@ class ItemListTest extends TestCase
     /** @test */
     public function 未ログインの場合マイリストは表示されない()
     {
-        $response = $this->get('/mypage?tab=like');
+        $response = $this->get('/?tab=mylist');
         $response->assertRedirect('/login');
     }
 }

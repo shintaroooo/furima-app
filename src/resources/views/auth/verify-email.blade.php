@@ -14,7 +14,7 @@
         </p>
         <div class="verify-actions">
             {{-- 認証はこちらボタン --}}
-            <a href="http://localhost:8025/" target="_blank" class="verify-button">認証はこちら</a>
+            <a href="http://localhost:8025/" target="_blank" class="verify-button">認証はこちらから</a>
 
             {{-- 認証メール再送 --}}
             @if (session('status') == 'verification-link-sent')

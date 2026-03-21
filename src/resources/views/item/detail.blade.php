@@ -28,7 +28,6 @@
                     <form action="{{ route('item.like', ['item_id' => $item->id]) }}" method="POST">
                         @csrf
                         <button class="like-button" type="submit">
-
                             @if (auth()->user()->likedItems()->where('item_id', $item->id)->exists())
                                 <img src="{{ asset('images/hartlogo_pink.png') }}">
                             @else
@@ -37,6 +36,12 @@
                             {{ $item->likes->count() }}
                         </button>
                     </form>
+                @else
+                    {{-- ログインしていない場合はいいね数のみ表示 --}}
+                    <div class="like-button disabled">
+                        <img src="{{ asset('images/hartlogo_default.png') }}">
+                        {{ $item->likes->count() }}
+                    </div>
                 @endauth
 
                 <div class="comment-count">
@@ -84,9 +89,16 @@
                 @endforeach
 
                 @auth
+                    {{-- ログイン済み --}}
                     <form action="{{ route('comment.store', ['item_id' => $item->id]) }}" method="POST">
                         @csrf
                         <textarea name="comment" rows="4"></textarea>
+                        <button type="submit" class="comment-button">コメントを送信する</button>
+                    </form>
+                @else
+                    {{-- 未ログイン --}}
+                    <form action="{{ route('login') }}" method="GET">
+                        <textarea rows="4" placeholder="コメントするにはログインして下さい"></textarea>
                         <button type="submit" class="comment-button">コメントを送信する</button>
                     </form>
                 @endauth

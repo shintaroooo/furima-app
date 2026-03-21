@@ -42,8 +42,9 @@
 
             <button type="submit" class="submit-button">登録する</button>
         </form>
-    @endsection
-</div>
+    </div>
+@endsection
+
 
 @section('link')
     <a href="{{ route('login') }}">ログインはこちら</a>
