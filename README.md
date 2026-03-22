@@ -151,7 +151,7 @@ http://localhost:8081/mypageにアクセス<br>
 `DB_PASSWORD=root`<br>
 
 ### テスト用APP_KEY生成
-`php artisan key:gererate --env=testing`<br>
+`php artisan key:generate --env=testing`<br>
 
 ### テスト用DB作成
 mysqlに入る<br>
