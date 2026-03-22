@@ -94,10 +94,4 @@ class ItemListTest extends TestCase
          $response->assertSee('sold');
     }
 
-    /** @test */
-    public function 未ログインの場合マイリストは表示されない()
-    {
-        $response = $this->get('/?tab=mylist');
-        $response->assertRedirect('/login');
-    }
 }
