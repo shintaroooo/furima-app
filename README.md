@@ -10,22 +10,47 @@ Dockerビルド<br>
 
 
 ## Laravel環境構築<br>
+
 ### PHPコンテナに入る<br>
 `docker compose exec php bash`<br>
 ### パッケージインストール<br>
 `composer install`<br>
+
 ### 環境ファイル作成<br>
 `cp .env.example .env`<br>
+
 ### DB設定について
 Docker環境では以下のように設定してください<br>
 DB_CONNECTION=mysql<br> 
 DB_HOST=mysql<br>
 ※DB接続情報（DB_DATABASE / DB_USERNAME / DB_PASSWORD）は<br>
 docker-compose.yml の設定と一致させてください<br>
+
+### メール設定
+本アプリではメール認証を使用しています<br>
+以下を.envに設定して下さい<br>
+`MAIL_MAILER=smtp`<br>
+`MAIL_HOST=mailhog`<br>
+`MAIL_PORT=1025`<br>
+`MAIL_FROM_ADDRESS=test@example.com`<br>
+
+Mailhogでメールを確認できます<br>
+http://localhost:8025
+
+### 決済機能について
+本アプリではStripeを利用しています<br>
+動作確認を行う場合は、StripeのAPIキーを取得し、以下.envに設定して下さい<br>
+`STRIPE_KEY=your_stripe_key`<br>
+`STRIPE_SECRET=your_stripe_secret`<br>
+※APIキーはStripeダッシュボードから取得できます<br>
+https://dashboard.stripe.com/test/apikeys
+
 ### アプリケーションキー作成<br>
 `php artisan key:generate`<br>
+
 ### データベース作成・初期化<br>
 `php artisan migrate:fresh --seed`<br>
+
 ### ストレージリンク作成<br>
 `php artisan storage:link`<br>
 
