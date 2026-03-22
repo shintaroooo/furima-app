@@ -27,9 +27,9 @@ class ItemController extends Controller
                 $items = collect();
                 return view('item.index', compact('items'));
             }
-            $query = Auth::user()->likedItems();
+            $query = Auth::user()->likedItems()->with('purchase');
     } else {
-        $query = Item::query();
+        $query = Item::with('purchase');
         //自分の出品は表示しない
         if(Auth::check()) {
             $query->where('user_id', '!=', Auth::id());

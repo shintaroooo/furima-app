@@ -27,8 +27,8 @@
                             <img src="{{ asset('storage/' . $item->images->first()->image_path) }}">
                         @endif
 
-                        @if ($item->purchase)
-                            <span class="item-card__sold">Sold</span>
+                        @if ($item->status === 'sold' || $item->purchase)
+                            <span class="item-card__sold">sold</span>
                         @endif
                     </div>
                     <p class="item-card__name">{{ $item->name }}</p>

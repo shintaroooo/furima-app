@@ -22,6 +22,6 @@ class CommentController extends Controller
             'comment' => $request->comment,
         ]);
 
-        return redirect()->route('item.detail', ['item' => $item->id]);
+        return redirect()->route('item.detail', ['item_id' => $item->id]);
     }
 }

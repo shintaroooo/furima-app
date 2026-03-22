@@ -12,6 +12,10 @@
     min-width: 0;
 }
 
+.success {
+    text-align: center;
+}
+
 /* 商品情報 */
 .purchase-item {
     display: flex;
